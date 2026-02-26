@@ -1,19 +1,48 @@
+#set heading(numbering: "1.")
+#show ref: it => text(blue, it)
+
 #outline(title: "Chapters")
 
-#let example(content, caption) = figure(
-  align(center)[#content],
-  caption: caption,
-  supplement: "Example",
-)
+
+#let example-counter = counter("example")
+
+#let example(title, body) = {
+  example-counter.step()
+  block(
+    width: 100%,
+    stroke: black + 1pt,
+    inset: 12pt,
+    radius: 0pt,
+    [
+      #text(weight: "bold", size: 11pt)[
+        #context example-counter.display() #h(1em) example: #title
+      ]
+      #body
+    ],
+  )
+}
+
+#let definition-counter = counter("definition")
+
+#let definition(title, body) = {
+  definition-counter.step()
+  block(
+    width: 100%,
+    stroke: black + 1pt,
+    inset: 12pt,
+    radius: 0pt,
+    [
+      #text(weight: "bold", size: 11pt)[
+        #context definition-counter.display() #h(1em) definition: #title
+      ]
+      #body
+    ],
+  )
+}
 
 #let formula(content, caption) = pad(y: 0.2cm)[#figure(
   align(center)[#content],
   caption: caption,
-  supplement: "Formula",
-)]
-
-#let fml(content) = pad(y: 0.2cm)[#figure(
-  align(center)[#content],
   supplement: "Formula",
 )]
 
@@ -45,16 +74,14 @@ here $a,b,c,d in R$
 
 - $R$ is a subset of $C$: $C in R$
 - We think of: $i^2 = -1$
-
-#example(
-  $
-    (2 + 3i)(4 + 5i) \
-                     & = 2(4) + 2(5i) + 3i(4) + (3i)(5i) \
-                     & = 8 + 10i + 12i - 15 \
-                     & = -7 + 22i \
-  $,
-  "Applying the distribute property",
-)
+\
+\
+#example("Applying the distribute property")[
+  $ (2 + 3i)(4 + 5i) \
+                   & = 2(4) + 2(5i) + 3i(4) + (3i)(5i) \
+                   & = 8 + 10i + 12i - 15 \
+                   & = -7 + 22i \ $,
+]
 
 - Complex addition and complex multiplication have the familiar properties we expect.
 
@@ -68,14 +95,73 @@ here $a,b,c,d in R$
 - #strong()[distributive property]: $lambda (alpha + beta) = lambda alpha + lambda beta$ for all $lambda, alpha, beta in C$
 
 #example("commutativity of complex multiplication")[
-  \ To show that #fml()[$alpha beta = beta alpha$ for all $alpha, beta in C$, we suppose: \
-    $alpha = a + b i$ and $beta = c + d i$]
+  \ To show that $alpha beta = beta alpha$ for all $alpha, beta in C$, we suppose: \
+  $alpha = a + b i$ and $beta = c + d i$
   where $a,b,c,d in R$. Then the definition of multiplication of complex numbers shows that: \
-  #fml()[$alpha beta = (a + b i)(c + d i)\ = (a c - b d) + (a d + b c)i$]
+  $
+    alpha beta & = (a + b i)(c + d i) \
+               & = (a c - b d) + (a d + b c)i
+  $
 
   and
 
-  #fml()[$beta alpha = (c + d i)(a + b i)\ = (c a - d b) + (c b + d a)i$]
+  $
+    beta alpha & = (c + d i)(a + b i) \
+               & = (c a - d b) + (c b + d a)i
+  $
 
   The equations above and the commutativity of multiplication and addition of real numbers show that $alpha beta = beta alpha$
 ]
+
+=== Definition: $-alpha$, subtraction, 1/$alpha$, division, for complex numbers.
+
+#definition($-alpha ", subtraction," 1/alpha "," "division ," "for complex numbers."$)[
+  \ Suppose $alpha, beta in C$
+
+  - Let $-alpha$ denote the additive inverse of $alpha$. This $-alpha$ is the unique complex number such that:
+  $ alpha + (-alpha) = 0 $
+
+  - Subtraction on $C$ is defined by:
+  $ beta - alpha = beta + (-alpha) $
+
+  - For $alpha != 0$, let $1/alpha$ and 1/$alpha$ denote the multiplicative inverse of $alpha$. Thus 1/$alpha$ is the unique complex number such that:
+  $ alpha(1 / alpha) = 1 $
+
+  - For $alpha != 0$, division by $alpha$ is defined by:
+
+  $ beta/alpha = beta (1/alpha) $
+]
+
+
+
+=== Notation: F
+
+- We will use $F$, that stands for $R$ or $C$.
+- So when we prove a theorem that holds for $F$, we will know it holds if we replace $F$ with either $C$ or $R$.
+- Elements of $F$ are called *scalars*.
+- The word "scalar", is a fancy word for number, used when we want to emphasize that an object is a number, as opposed to a #ref(<Vectors>, supplement: "Vector").
+
+=== Exponants in $F$
+
+- For $alpha in F$, and $m$ a positive integer, we define $alpha^m$ to denote the product $alpha$ with itself $m$ times:
+$ alpha^m = underbrace(alpha dots.h alpha, m "times") $
+- This definition implies:
+$(a^m)^n = a^(m n)$ and $(alpha beta)^m = alpha^m beta^m$
+for all $alpha, beta in F$ and all positive integers $m,n$.
+
+=== Lists
+
+#example($R^2 "and" R^3$)[
+  - The set $R^2$, which you can think of as a plane, is the set of all ordered pairs of real numbers:
+  $ R^2 = {(x,y): x,y in R} $
+
+  - The set $R^3$, which you can think of as an ordinary space, is a set of all ordered triples of real numbers:
+  $ R^3 = {(x,y,z): x,y,z: R} $
+]
+
+#definition("List, length")[
+  - Suppose $n in NN$. A list of length $n$ is an ordered collection of $n$ elements (which might be numbers, other lists, or more abstract objects).
+  - Two lists are equal if and only if they have the same length and the same elements in the same order.
+]
+
+=== Vector <Vectors>
