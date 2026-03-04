@@ -156,12 +156,39 @@ for all $alpha, beta in F$ and all positive integers $m,n$.
   $ R^2 = {(x,y): x,y in R} $
 
   - The set $R^3$, which you can think of as an ordinary space, is a set of all ordered triples of real numbers:
-  $ R^3 = {(x,y,z): x,y,z: R} $
+  $ R^3 = {(x,y,z): x,y,z in R} $
 ]
 
 #definition("List, length")[
   - Suppose $n in NN$. A list of length $n$ is an ordered collection of $n$ elements (which might be numbers, other lists, or more abstract objects).
   - Two lists are equal if and only if they have the same length and the same elements in the same order.
 ]
+- A list of length _n_ might be written as such: $(z_1, ... ,z_n)$
+- Lists differ from finite sets in two ways:
+  - In lists, order matters and repititions have meaning.
+  - In sets, order and repetitions are irrelevant.
+
+#example("lists v.s. sets")[
+  - The list $(3,5)$ and $(5,3)$ are not equal, but the sets ${3,5}$ and ${5,3}$ are equal.
+  - The lists $(4,4)$ and $(4,4,4)$ are not equal (they do not have the same length), although sets ${4,4}$ amd ${4,4,4}$ are both equal to set ${4}$
+]
+
+=== $F^n$
+
+- Let's fix a positive integer $n$ for now.
+
+#definition($F^n ", coordinate"$)[
+  - $F^n$ is the set of all lists of length $n$ of elements of $F$:
+  $ F^n = {(x_1,...,x_n): x_k in F "for" k = 1,...,n} $
+  - For $(x_1,...,x_n) in F^n$ and $k in {1,...,n}$ we say that $x_k$ is the $k^"th"$ coordinate of $(x_1,...,x_n)$
+]
+
+#example($C^4$)[
+  - $C^4$ is the set of all lists of four complex numbners:
+  $ C^4 = {(z_1,z_2,z_3,z_4): z_1,z_2,z_3,z_4 in C} $
+]
+
+- If $n >= 4$, then we cannotr visualize $R^n$ as a physical object.
+- However, we can still perform algebraic manipulations.
 
 === Vector <Vectors>
