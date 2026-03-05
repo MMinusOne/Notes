@@ -1,100 +1,89 @@
+#import "templates.typ": *
 #set heading(numbering: "1.")
 #show ref: it => text(blue, it)
-
+#set page(
+  paper: "a4",
+  margin: (x: 1cm),
+)
+#show heading: it => text(
+  it,
+  font: "Arial",
+  blue,
+)
 #outline(title: "Chapters")
-
-
-#let example-counter = counter("example")
-
-#let example(title, body) = {
-  example-counter.step()
-  block(
-    width: 100%,
-    stroke: black + 1pt,
-    inset: 12pt,
-    radius: 0pt,
-    [
-      #text(weight: "bold", size: 11pt)[
-        #context example-counter.display() #h(1em) example: #title
-      ]
-      #body
-    ],
-  )
-}
-
-#let definition-counter = counter("definition")
-
-#let definition(title, body) = {
-  definition-counter.step()
-  block(
-    width: 100%,
-    stroke: black + 1pt,
-    inset: 12pt,
-    radius: 0pt,
-    [
-      #text(weight: "bold", size: 11pt)[
-        #context definition-counter.display() #h(1em) definition: #title
-      ]
-      #body
-    ],
-  )
-}
-
-#let formula(content, caption) = pad(y: 0.2cm)[#figure(
-  align(center)[#content],
-  caption: caption,
-  supplement: "Formula",
-)]
 
 = Vector Spaces
 
 == Intro
 
-- Linear algebra is the study of maps on finite-dimensional vector spaces.
-- A vector space is a set with operations of addition and scalar multiplication that satisfy natural algebraic properties.
-- Subspaces for vector spaces is analogous to subsets fo sets.
-- Sums of subspaces analogous to unions of subsets.
-- Direct sums of subspaces analogous to unions of disjoint sets.
+Linear algebra is the study of maps on finite-dimensional vector spaces.
+A vector space is a set with operations of addition and scalar multiplication that satisfy natural algebraic properties.
+Subspaces for vector spaces is analogous to subsets fo sets.
+Sums of subspaces analogous to unions of subsets.
+Direct sums of subspaces analogous to unions of disjoint sets.
 
 == $R^n$ and $C^n$
 
-- Complex numbers were invented so we can take square roots of negative numbers.
-- The idea is to have $i = sqrt(-1)$ that obeys the usual rules of arithemetic.
+Complex numbers were invented so we can
+take square roots of negative numbers.
+
+#definition(title: "")[
+  $ i = sqrt(-1) $
+]
+
+The idea is to have $i$ that obeys the usual rules of arithemetic.
 
 === Formal definitions
 
-- A complex number is an ordered pair $(a,b)$ where $a,b in R$
-- We will write this as $a + b i$
-- The set of all complex numbers is: #formula("Definition of the complex set")[$C = { a + b i : a, b in R}$]
-- Addition and multiplication on $C$ are defined by:
-#formula("Addition on C")[$(a+b i) + (c + d i) = (a + c) + (b + d)i$]
-#formula("Multiplication on C")[$(a + b i)(c + d i) = (a c - b d) + (a d + b c)i$]
-
-here $a,b,c,d in R$
-
-- $R$ is a subset of $C$: $C in R$
-- We think of: $i^2 = -1$
-\
-\
-#example("Applying the distribute property")[
-  $ (2 + 3i)(4 + 5i) \
-                   & = 2(4) + 2(5i) + 3i(4) + (3i)(5i) \
-                   & = 8 + 10i + 12i - 15 \
-                   & = -7 + 22i \ $,
+#definition(title: "Complex number")[
+  A complex number is an ordered pair $(a,b)$ where $a,b in R$ \
+  We will write this as $a + b i$ \
 ]
 
-- Complex addition and complex multiplication have the familiar properties we expect.
+#definition(title: "Set of all complex numbers")[
+  The set of all complex numbers is:
+  $ C = { a + b i : a, b in R} $
+]
+\
+\
+\
+#definition(title: "Addition and multiplication on C")[
+  \
+  Addition and multiplication on $C$ are defined by:
+
+  - *Addition*: $ (a+b i) + (c + d i) = (a + c) + (b + d)i $
+
+  - *Multiplication*: $ (a + b i)(c + d i) = (a c - b d) + (a d + b c)i $
+
+
+  here $a,b,c,d in R$
+]
+
+$R$ is a subset of $C$: $C in R$ .
+We think of: $i^2 = -1$
+
+#example(title: "Applying the distribute property")[
+  $
+    (2 + 3i)(4 + 5i) \
+                     & = 2(4) + 2(5i) + 3i(4) + (3i)(5i) \
+                     & = 8 + 10i + 12i - 15 \
+                     & = -7 + 22i \
+  $
+]
+
+Complex addition and complex multiplication have the familiar properties we expect.
 
 === Properties of complex arithemetic
 
-- #strong()[commutativity]: $alpha + beta = beta + alpha$ and $alpha beta = beta alpha$ for all $alpha, beta in C$
-- #strong()[associativity]: $(alpha + beta) + lambda = alpha + (beta + alpha)$ and $(alpha beta)lambda = alpha (beta lambda)$ for all $alpha, beta in C$
-- #strong()[identities]: $(lambda + 0) = lambda$ and $lambda 1 = lambda$ for all $lambda in C$
-- #strong()[additive inverse]: For every $(alpha in C)$
-- #strong()[multiplicative inverse]: For every $alpha in C$ with $alpha != 0$, there exists a unique $beta in C$ such that $alpha beta = 1$
-- #strong()[distributive property]: $lambda (alpha + beta) = lambda alpha + lambda beta$ for all $lambda, alpha, beta in C$
-
-#example("commutativity of complex multiplication")[
+#definition(title: "Properties of complex arithematic")[
+  - #strong()[commutativity]: $alpha + beta = beta + alpha$ and $alpha beta = beta alpha$ for all $alpha, beta in C$
+  - #strong()[associativity]: $(alpha + beta) + lambda = alpha + (beta + alpha)$ and $(alpha beta)lambda = alpha (beta lambda)$ for all $alpha, beta in C$
+  - #strong()[identities]: $(lambda + 0) = lambda$ and $lambda 1 = lambda$ for all $lambda in C$
+  - #strong()[additive inverse]: For every $(alpha in C)$
+  - #strong()[multiplicative inverse]: For every $alpha in C$ with $alpha != 0$, there exists a unique $beta in C$ such that $alpha beta = 1$
+  - #strong()[distributive property]: $lambda (alpha + beta) = lambda alpha + lambda beta$ for all $lambda, alpha, beta in C$
+]
+#example(title: "commutativity of complex multiplication")[
   \ To show that $alpha beta = beta alpha$ for all $alpha, beta in C$, we suppose: \
   $alpha = a + b i$ and $beta = c + d i$
   where $a,b,c,d in R$. Then the definition of multiplication of complex numbers shows that: \
@@ -115,7 +104,7 @@ here $a,b,c,d in R$
 
 === Definition: $-alpha$, subtraction, 1/$alpha$, division, for complex numbers.
 
-#definition($-alpha ", subtraction," 1/alpha "," "division ," "for complex numbers."$)[
+#definition(title: $-alpha ", subtraction," 1/alpha "," "division ," "for complex numbers."$)[
   \ Suppose $alpha, beta in C$
 
   - Let $-alpha$ denote the additive inverse of $alpha$. This $-alpha$ is the unique complex number such that:
@@ -151,7 +140,7 @@ for all $alpha, beta in F$ and all positive integers $m,n$.
 
 === Lists
 
-#example($R^2 "and" R^3$)[
+#example(title: $R^2 "and" R^3$)[
   - The set $R^2$, which you can think of as a plane, is the set of all ordered pairs of real numbers:
   $ R^2 = {(x,y): x,y in R} $
 
@@ -159,7 +148,7 @@ for all $alpha, beta in F$ and all positive integers $m,n$.
   $ R^3 = {(x,y,z): x,y,z in R} $
 ]
 
-#definition("List, length")[
+#definition(title: "List, length")[
   - Suppose $n in NN$. A list of length $n$ is an ordered collection of $n$ elements (which might be numbers, other lists, or more abstract objects).
   - Two lists are equal if and only if they have the same length and the same elements in the same order.
 ]
@@ -168,7 +157,7 @@ for all $alpha, beta in F$ and all positive integers $m,n$.
   - In lists, order matters and repititions have meaning.
   - In sets, order and repetitions are irrelevant.
 
-#example("lists v.s. sets")[
+#example(title: "lists v.s. sets")[
   - The list $(3,5)$ and $(5,3)$ are not equal, but the sets ${3,5}$ and ${5,3}$ are equal.
   - The lists $(4,4)$ and $(4,4,4)$ are not equal (they do not have the same length), although sets ${4,4}$ amd ${4,4,4}$ are both equal to set ${4}$
 ]
@@ -177,13 +166,13 @@ for all $alpha, beta in F$ and all positive integers $m,n$.
 
 - Let's fix a positive integer $n$ for now.
 
-#definition($F^n ", coordinate"$)[
+#definition(title: $F^n ", coordinate"$)[
   - $F^n$ is the set of all lists of length $n$ of elements of $F$:
   $ F^n = {(x_1,...,x_n): x_k in F "for" k = 1,...,n} $
   - For $(x_1,...,x_n) in F^n$ and $k in {1,...,n}$ we say that $x_k$ is the $k^"th"$ coordinate of $(x_1,...,x_n)$
 ]
 
-#example($C^4$)[
+#example(title: $C^4$)[
   - $C^4$ is the set of all lists of four complex numbners:
   $ C^4 = {(z_1,z_2,z_3,z_4): z_1,z_2,z_3,z_4 in C} $
 ]
@@ -191,4 +180,4 @@ for all $alpha, beta in F$ and all positive integers $m,n$.
 - If $n >= 4$, then we cannotr visualize $R^n$ as a physical object.
 - However, we can still perform algebraic manipulations.
 
-=== Vector <Vectors>
+=== Vectors <Vectors>
